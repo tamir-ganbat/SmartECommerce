@@ -1,0 +1,56 @@
+#sub {
+	border-radius: 5px;
+}
+
+
+#table th {
+	background-color: gray;
+}
+
+#table tr:nth-child(odd) {
+	background-color: yellow;
+}
+
+#Container {
+	height: 700px;
+	width: 900px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.right {
+	background: #d9edf7;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	float: right;
+}
+
+#Table-box {
+	width: 600px;
+	padding: 20px;
+	margin: 100px auto;
+	border: 0px solid transparent;
+	border-radius: 10px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	border: 1px solid #31708f;
+}
+
+.msg {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+
+#myDiv {
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	width: 200px;
+}

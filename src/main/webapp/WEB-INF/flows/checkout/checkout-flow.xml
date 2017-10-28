@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+							http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+<!-- Flow level variable definition SO flow scope -->
+	<var name="order" class="edu.mum.domain.UserOrder" />
+
+<!-- First "state" listed is first executed - unless <on-start> -->
+	<action-state id="addCartToOrder">
+		<evaluate expression="orderControllerHelper.validateCart(requestParameters.cartId, requestParameters.totalPrice, requestParameters.userId)" result="order" />
+		<transition to="collectCustomerInfo" />
+		<transition to="InvalidCartWarning" on-exception="edu.mum.exception.InvalidCartException" />		
+	</action-state>
+
+	<view-state id="collectCustomerInfo" view="collectCustomerInfo.jsp" model="order">
+		<transition on="customerInfoCollected" to="collectShippingDetail" />
+		<transition on="checkoutCancelled" to="cancelCheckout" validate= "false"/>
+	</view-state>
+
+	<view-state id="collectShippingDetail" model="order">
+		<transition on="shippingDetailCollected" to="calculateShippingAndTax" />
+		<transition on="backToCollectCustomerInfo" to="collectCustomerInfo" validate= "false"/>
+		<transition on="checkoutCancelled" to="cancelCheckout" validate= "false"/>
+	</view-state>
+	
+	<action-state id="calculateShippingAndTax">
+		<evaluate expression="orderControllerHelper.calculateShippingAndTax(order)" result="order" />
+		<transition to="collectPaymentDetail" />
+	</action-state>
+	
+	<view-state id="collectPaymentDetail" view="collectPaymentDetail.jsp"  model="order">
+		<transition on="collectPaymentDetailCollected" to="processOrder"/>
+		<transition on="backToCollectShippingDetail" to="collectShippingDetail" validate= "false"/>
+		<transition on="checkoutCancelled" to="cancelCheckout" validate= "false"/>
+	</view-state>
+
+	<view-state id="orderConfirmation">
+		<transition on="orderConfirmed" to="processOrder" />
+		<transition on="backToCollectShippingDetail" to="collectPaymentDetail" />
+	</view-state>
+	
+	<!-- result="order.orderId" saves result of expression -->
+	<action-state id="processOrder">
+		<evaluate expression="orderControllerHelper.saveOrder(order)" result="order"/>
+		<transition to="thankCustomer" />
+	</action-state>
+	
+	<view-state id="InvalidCartWarning">
+		<transition to="endState"/>
+	</view-state>
+	
+	<view-state id="thankCustomer" model="order">
+		<transition to="endState"/>
+	</view-state>
+
+	<end-state id="endState"/>	
+
+	<end-state id="cancelCheckout" view = "checkOutCancelled.jsp"/>		
+	
+	<global-transitions>
+		<transition on = "cancel" to="endState" />
+	</global-transitions>
+
+</flow>

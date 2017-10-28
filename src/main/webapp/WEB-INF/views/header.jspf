@@ -1,0 +1,106 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+<title>Members</title>
+<script type="text/javascript"
+	src='<spring:url value="/resources/js/ajaxCart.js"  htmlEscape="true" />'></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src='<spring:url value="/resources/js/header.js"  htmlEscape="true" />'></script>
+<link rel="stylesheet" type="text/css"
+	href='<spring:url value="/resources/css/main.css" />'>
+<link rel="stylesheet" type="text/css"
+	href='<spring:url value="/resources/css/cart.css" />'>
+<link rel="stylesheet" type="text/css"
+	href='<spring:url value="/resources/css/order.css" />'>
+	
+<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	
+<script src="/WEB-INF/js/cart.js"></script>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.2/css/star-rating.min.css">
+
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<c:url value="/products"></c:url>">Smart
+					E-Commerce</a>
+				<div class="navbar-header" style="margin-top: 13px;">
+					<a href="?language=en">EN</a> | <a href="?language=tig_ER">TG</a> | <a href="?language=mn_MN">MNG</a>
+				</div>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<security:authorize access="${ userRole eq 'ROLE_ADMIN'}">
+							<a href="<c:url value="/product/add"/>" id="addProduct"><spring:message
+							code="menu.form.addProduct.label" /></a>
+						</security:authorize>
+					</li>
+					<li>
+						<security:authorize access="${ userRole eq 'ROLE_ADMIN'}">
+							<a href="<c:url value="/usersList"/>" id="users"><spring:message
+							code="menu.form.users.label" /></a>
+						</security:authorize>
+					</li>
+					<li>
+						<a href="<c:url value="/products"/>" id="products"><spring:message
+							code="menu.form.products.label" /></a>
+					</li>
+					<li>
+						<security:authorize access="${ userRole eq 'ROLE_USER'}">
+							<a href="<c:url value="/userOrders/${userId}"/>" id="orders"><spring:message
+							code="menu.form.orders.label" /></a>
+						</security:authorize>
+					</li>
+					<li>
+						<security:authorize access="${ userRole eq 'ROLE_USER'}">
+							<a href="<c:url value="/cart"/>"  id="cart"><spring:message
+							code="menu.form.cart.label" /></a>
+						</security:authorize>
+					<li>
+						<security:authorize access="!isAnonymous()">
+							<a href='<spring:url value="/logout"/>' id="logout"><spring:message
+							code="menu.form.logout.label" /></a>
+						</security:authorize>
+						</li>
+					<li>
+						<security:authorize access="isAnonymous()">
+							<a href='<spring:url value="/login" />' id="login"><spring:message
+							code="menu.form.login.label" /></a>
+						</security:authorize>
+					</li>
+				</ul>
+				<form method="GET" action="<spring:url value="/products/search"/>"
+ 					class="navbar-form navbar-right" _lpchecked="1"> 
+					<input type="text" name="q" class="form-control"
+ 						placeholder="Search..."> 
+ 				</form> 
+			</div>
+		</div>
+	</nav>

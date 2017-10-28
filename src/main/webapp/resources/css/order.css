@@ -1,0 +1,68 @@
+
+.banner {
+	padding-bottom: 0px;
+	padding-top: 0px;
+	border-bottom: solid 1px #DDD !important;
+	background: linear-gradient(to bottom, #ffffff 86%, #d8d8d8 113%);
+	margin-bottom: 21px;
+}
+
+.cart {
+	border: solid 1px #DDD !important;
+	height: 271px;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+.cartHeader {
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 1.255;
+	padding-left: 15px;
+}
+
+.miLine {
+	width: 25%;
+	height: 0px;
+	maring-bottom: 0px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	float: right;
+}
+
+.total {
+	color: #B12704 !important;
+	font-size: 17px !important;
+	font-weight: 700 !important;
+}
+
+.selectedLegend {
+	color: #c45500 !important;
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 1.255;
+}
+
+legend {
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 1.255;
+}
+
+.divider {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, .14),
+		rgba(0, 0, 0, .03) 3px, transparent);
+}
+input{
+    border-radius: 3px;
+    border: 1px solid #a6a6a6;
+}
+.hdrOfOrders{
+	text-align:center;
+}
+.hdrOfTable{
+	text-align: center;
+}
+.tdOfTable{
+	background-color: transparent;
+}
